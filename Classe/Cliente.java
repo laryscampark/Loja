@@ -65,4 +65,60 @@ public class Cliente {
 			System.out.println("Erro, não foi possível cadastrar."+erro);
 		}
 	}
+
+	public void consultar () {
+		try {
+			conecta.conectar();
+			String sql = "select nome, email, whats, id from clientes where id = ?";
+
+			PreparedStatement stm = conecta.con.prepareStatement(sql);
+			stm.setInt(1, id);
+			ResultSet rs = stm.executeQuery();
+
+			if (rs.next()) {
+				this.setNome(rs.getString("nome"));
+				this.setEmail(rs.getString("email"));
+				this.setWhats(rs.getString("whats"));
+			}
+			stm.close();
+		} catch (SQLException erro) {
+			System.out.println("Não foi possivel encontrar os dados." +erro);
+		}
+	}
+
+	public void atualizar (String nome, String email, String whats) {
+		System.out.println(nome);
+
+		try {
+			conecta.conectar();
+			String sql = ("UPDATE ficha SET nome= '" +nome+"', email= '"+email+"', whats= '"+whats+"' WHERE id=" +id+ ";");
+
+			PreparedStatement stm = conecta.con.prepareStatement(sql);
+
+			stm.executeUpdate();
+
+			System.out.println("Dados atualizados com sucesso");
+
+		} catch (SQLException erro) {
+			System.out.println("Erro não foi possivel atualizar os dados."+erro);
+		}
+	}
+
+	public void excluir () {
+		try{
+			conecta.conectar();
+			String sql = "delete from clientes where id = ?";
+
+			PreparedStatement stm = conecta.con.prepareStatement(sql);
+
+			stm.setInt(1, id);
+			stm.execute();
+
+			System.out.println("Dados excluidos com sucesso");
+
+		} catch (SQLException erro) {
+			System.out.println("Erro não foi possivel excluir os dados."+erro);
+		}
+	}
+
 }
