@@ -91,7 +91,7 @@ public class Cliente {
 
 		try {
 			conecta.conectar();
-			String sql = ("UPDATE ficha SET nome= '" +nome+"', email= '"+email+"', whats= '"+whats+"' WHERE id=" +id+ ";");
+			String sql = ("UPDATE clientes SET nome= '" +nome+"', email= '"+email+"', whats= '"+whats+"' WHERE id=" +id+ ";");
 
 			PreparedStatement stm = conecta.con.prepareStatement(sql);
 
