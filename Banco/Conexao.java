@@ -10,7 +10,7 @@ public class Conexao {
 	private String psw;
 	private String driver;
 	
-	Connection con = null;
+	public Connection con = null;
 	
 	public Connection conectar() {
 		url = "jdbc:mysql://localhost:3306/banco?characterEncoding=utf8&useSSL=false&useUnicode=true";
@@ -35,7 +35,7 @@ public class Conexao {
 	
 	public static void main (String [] args) {
 		
-		Conexao co = new Conexao();
-		co.conectar();
+		Conexao conecta = new Conexao();
+		conecta.conectar();
 	}
 }
