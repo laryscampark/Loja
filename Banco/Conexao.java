@@ -15,7 +15,7 @@ public class Conexao {
 	public Connection conectar() {
 		url = "jdbc:mysql://localhost:3306/banco?characterEncoding=utf8&useSSL=false&useUnicode=true";
 		user = "root";
-		psw = "mysql";
+		psw = "1997";
 		driver = "com.mysql.jdbc.Driver";
 		
 		try {
