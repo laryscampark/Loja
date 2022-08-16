@@ -46,7 +46,7 @@ public class Cliente {
 
 	Conexao conecta = new Conexao();
 
-	public void insert() {
+	public void insert(String nome, String email, String whats) {
 		try {
 			conecta.conectar();
 			String sql = "insert into clientes (nome, email, whats) values (?,?,?)";

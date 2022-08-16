@@ -39,7 +39,7 @@ public class Cria_Cliente {
 			cli.setWhats(whats);
 
 			
-			cli.insert();
+			cli.insert(nome, email, whats);
 
 			break;
 

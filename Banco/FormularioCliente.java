@@ -1,5 +1,7 @@
 package Banco;
 
+import Classe.Cliente;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +31,11 @@ public class FormularioCliente extends JFrame {
 	private JButton btnNewButton_1;
 	
 	Conexao conecta = new Conexao();
+	
+	Cliente cli = new Cliente();
+	
+
+	Connection con;
 
 	/**
 	 * Launch the application.
@@ -86,33 +93,42 @@ public class FormularioCliente extends JFrame {
 		contentPane.add(textWhats);
 		textWhats.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Inserir");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		
-
-				
-					String sql = ("insert into clientes ('"+textNome.getText()+"','"+textEmail.getText()+"','"+textWhats.getText()+"','')");
-					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso");
-
-					textNome.setText("");
-					textEmail.setText("");
-					textWhats.setText("");
-					textNome.requestFocus();
-							
-				
-			}
-			
-		});
-		btnNewButton.setBounds(156, 215, 89, 23);
-		contentPane.add(btnNewButton);
-		
 		btnNewButton_1 = new JButton("Voltar");
+		btnNewButton_1.setBounds(295, 215, 89, 23);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(295, 215, 89, 23);
 		contentPane.add(btnNewButton_1);
-	}
+		
+		JButton inserir = new JButton("Cadastrar");
+		inserir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				try {
+					conecta.conectar();
+					String sql = "insert into clientes (nome, email, whats) values (?,?,?)";
+					PreparedStatement stm = conecta.con.prepareStatement(sql);
+
+					stm.setString(1,textNome.getText());
+					stm.setString(2,textEmail.getText());
+					stm.setString(3,textWhats.getText());
+
+					stm.execute();
+
+					System.out.println("Dados cadastrados com sucesso!");
+					stm.close();
+
+				}catch(SQLException erro) {
+					System.out.println("Erro, não foi possível cadastrar."+erro);
+				}
+			}
+			
+			
+		});
+		inserir.setBounds(53, 183, 89, 23);
+		contentPane.add(inserir);
 }
+}
+
