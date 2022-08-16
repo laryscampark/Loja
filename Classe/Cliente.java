@@ -86,7 +86,7 @@ public class Cliente {
 		}
 	}
 
-	public void atualizar (int id, String nome, String email, String whats) {
+	public void atualizar (String nome, String email, String whats) {
 		System.out.println(nome);
 
 		try {
