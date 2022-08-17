@@ -61,10 +61,8 @@ public class Cria_EstoqueCliente {
 				System.out.println("Nome: " + estoque.getNome_produto());
 				System.out.println("Quantidade de Mercadoria: " + estoque.getQtd_produto());
 				System.out.println("Informe o valor: " + estoque.getValor_produto());
-				System.out.println("O remédio é genérico? " + estoque.getMd_generico());
 				System.out.println("É remédio de marca? " + estoque.getMd_marca());
-
-				break;
+				System.out.println("Genérico? " + estoque.getMd_generico());
 
 			case 3:
 
@@ -112,7 +110,7 @@ public class Cria_EstoqueCliente {
 			System.out.println("\nDigite:\n1-Continuar\n2-Sair\n");
 			i = ler.nextInt();
 		}
-		System.out.println("Obrigado pelo cadastro, saindo do sistema.");
+		System.out.println("Obrigado pela preferência, saindo do sistema.");
 		ler.close();
 
 	}

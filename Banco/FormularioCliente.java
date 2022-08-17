@@ -23,6 +23,7 @@ import java.awt.Color;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import java.awt.Font;
 
 public class FormularioCliente extends JFrame {
 
@@ -39,9 +40,10 @@ public class FormularioCliente extends JFrame {
 
 	Connection con;
 	private JButton delete;
-	private JTextField id;
 	private JButton Atualizar;
 	private JButton Buscar;
+	private JLabel lblN;
+	private JTextField id;
 
 	/**
 	 * Launch the application.
@@ -74,29 +76,29 @@ public class FormularioCliente extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
-		lblNewLabel.setBounds(134, 104, 46, 14);
+		lblNewLabel.setBounds(134, 153, 46, 14);
 		contentPane.add(lblNewLabel);
 		
 		nome = new JTextField();
-		nome.setBounds(190, 102, 196, 20);
+		nome.setBounds(190, 151, 196, 20);
 		contentPane.add(nome);
 		nome.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("E-mail");
-		lblNewLabel_1.setBounds(134, 135, 46, 14);
+		lblNewLabel_1.setBounds(134, 184, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		email = new JTextField();
-		email.setBounds(190, 132, 196, 20);
+		email.setBounds(190, 181, 196, 20);
 		contentPane.add(email);
 		email.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Contato");
-		lblNewLabel_3.setBounds(134, 179, 46, 14);
+		lblNewLabel_3.setBounds(134, 228, 46, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		whats = new JTextField();
-		whats.setBounds(190, 176, 196, 20);
+		whats.setBounds(190, 225, 196, 20);
 		contentPane.add(whats);
 		whats.setColumns(10);
 		
@@ -113,7 +115,7 @@ public class FormularioCliente extends JFrame {
 		
 		JButton inserir = new JButton("");
 		inserir.setBackground(Color.WHITE);
-		inserir.setIcon(new ImageIcon("C:\\Users\\laryssa.silva\\Downloads\\icons8-adicionar-propriedade-48.png"));
+		inserir.setIcon(new ImageIcon("C:\\Users\\jamna\\Downloads\\icons8-adicionar-propriedade-48.png"));
 		inserir.setBounds(40, 353, 70, 43);
 		inserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,15 +174,6 @@ public class FormularioCliente extends JFrame {
 		delete.setBounds(409, 354, 85, 21);
 		contentPane.add(delete);
 		
-		id = new JTextField();
-		id.setBounds(218, 60, 96, 19);
-		contentPane.add(id);
-		id.setColumns(10);
-		
-		JLabel lblId = new JLabel("Id");
-		lblId.setBounds(134, 63, 46, 14);
-		contentPane.add(lblId);
-		
 		Atualizar = new JButton("Atualizar");
 		Atualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -235,8 +228,22 @@ public class FormularioCliente extends JFrame {
 			}
 
 		});
-		Buscar.setBounds(157, 354, 85, 21);
+		Buscar.setBounds(173, 354, 85, 21);
 		contentPane.add(Buscar);
+		
+		JLabel lblCadastroDeClientes = new JLabel("     Cadastro de Clientes");
+		lblCadastroDeClientes.setFont(new Font("Times New Roman", Font.PLAIN, 35));
+		lblCadastroDeClientes.setBounds(108, 42, 371, 31);
+		contentPane.add(lblCadastroDeClientes);
+		
+		lblN = new JLabel("");
+		lblN.setBounds(134, 117, 46, 14);
+		contentPane.add(lblN);
+		
+		id = new JTextField();
+		id.setColumns(10);
+		id.setBounds(190, 114, 196, 20);
+		contentPane.add(id);
 }
 }
 

@@ -2,6 +2,7 @@ package Classe;
 
 import Banco.Conexao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,10 @@ public class EstoqueCliente {
 	double valor_produto;
 	String md_generico;
 	String md_marca;
+
+	private Connection connection = null;
+	private java.sql.Statement statement = null;
+	private ResultSet resultset = null;
 
 	public int getId_produto() {
 		return id_produto;
@@ -75,23 +80,22 @@ public class EstoqueCliente {
 	public void insert() {
 		try {
 			conecta.conectar();
-			String sql = "insert into produtos (nome_produto, qtd_produto, valor_produto, md_generico, md_marca) values (?,?,?,?,?)";
-			PreparedStatement stm = conecta.con.prepareStatement(sql);
+			String query = "Insert into produtos";
+			this.resultset = this.statement.executeQuery(query);
+			this.statement = this.connection.createStatement();
 
-			stm.setString(1, nome_produto);
-			stm.setInt(2, qtd_produto);
-			stm.setDouble(3, valor_produto);
-			stm.setString(4, md_generico);
-			stm.setString(5, md_marca);
+			while (this.resultset.next()) {
+				String meuID = resultset.getString("id");
+				String meuProduto = resultset.getString("produtos");
 
-			stm.execute();
+				System.out.println("id" + meuID);
+				System.out.println("produto" + meuProduto);
+			}
 
-			System.out.println("Dados cadastrados com sucesso!");
-			stm.close();
-
-		} catch (SQLException erro) {
-			System.out.println("Erro, não foi possível cadastrar." + erro);
+		} catch (Exception e) {
+			System.out.println("erro" + e.getMessage());
 		}
+
 	}
 
 	public void consultar() {
@@ -99,6 +103,48 @@ public class EstoqueCliente {
 			conecta.conectar();
 			String sql = "select nome_produto, qtd_produto, valor_produto, md_generico, md_marca, id_produto from produtos where id_produto = ?";
 
+			PreparedStatement stm = conecta.con.prepareStatement(sql);
+			stm.setInt(1, id_produto);
+			ResultSet rs = stm.executeQuery();
+
+			if (rs.next()) {
+				this.setNome_produto(rs.getString("nome_produto"));
+				this.setQtd_produto(rs.getInt("qtd_produto"));
+				this.setValor_produto(rs.getDouble("valor_produto"));
+				this.setMd_generico(rs.getString("md_generico"));
+				this.setMd_marca(rs.getString("md_marca"));
+			}
+			stm.close();
+
+		} catch (SQLException erro) {
+			System.out.println("Não foi possivel encontrar os dados." + erro);
+		}
+	}
+
+	public void atualizar(String nome_produto, int qtd_produto, double valor_produto, String md_generico,
+			String md_marca) {
+		System.out.println(nome_produto);
+		try {
+			conecta.conectar();
+			String sql = ("UPDATE produtos SET nome_produto= '" + nome_produto + "', qtd_produto= '" + qtd_produto
+					+ "', valor_produto= '" + valor_produto + "', md_generico= '" + md_generico + "', md_marca= '"
+					+ md_marca + "' WHERE id_produto=" + id_produto + ";");
+
+			PreparedStatement stm = conecta.con.prepareStatement(sql);
+
+			stm.executeUpdate();
+
+			System.out.println("Dados atualizados com sucesso");
+
+		} catch (SQLException erro) {
+			System.out.println("Erro não foi possivel atualizar os dados." + erro);
+		}
+	}
+	public void listarProdutos() {
+		try {
+			
+			conecta.conectar();
+			 String sql = "select * from produto where id_produto = ?" ;
 			PreparedStatement stm = conecta.con.prepareStatement(sql);
 			stm.setInt(1, id_produto);
 			ResultSet rs = stm.executeQuery();
@@ -114,40 +160,24 @@ public class EstoqueCliente {
 		} catch (SQLException erro) {
 			System.out.println("Não foi possivel encontrar os dados." + erro);
 		}
+	
 	}
+	
+	public void excluir() {
+		try {
+			conecta.conectar();
+			String sql = "delete from produtos where id_produto = ?";
 
-public void atualizar (String nome_produto, int qtd_produto, double valor_produto, String md_generico, String md_marca) {
-System.out.println(nome_produto);
-try {
-conecta.conectar();
-String sql = ("UPDATE produtos SET nome_produto= '" +nome_produto+"', qtd_produto= '"+qtd_produto+"', valor_produto= '"+valor_produto+"', md_generico= '"+md_generico+"', md_marca= '"+md_marca+"' WHERE id_produto=" +id_produto+";");
+			PreparedStatement stm = conecta.con.prepareStatement(sql);
 
-PreparedStatement stm = conecta.con.prepareStatement(sql);
+			stm.setInt(1, id_produto);
+			stm.execute();
 
-stm.executeUpdate();
+			System.out.println("Dados excluidos com sucesso");
 
-System.out.println("Dados atualizados com sucesso");
-
-} catch (SQLException erro) {
-System.out.println("Erro não foi possivel atualizar os dados."+erro);
-}
-}
-
-public void excluir () {
-try{
-conecta.conectar();
-String sql = "delete from produtos where id_produto = ?";
-
-PreparedStatement stm = conecta.con.prepareStatement(sql);
-
-stm.setInt(1, id_produto);
-stm.execute();
-
-System.out.println("Dados excluidos com sucesso");
-
-} catch (SQLException erro) {
-System.out.println("Erro não foi possivel excluir os dados."+erro);
-}
-}
+		} catch (SQLException erro) {
+			System.out.println("Erro não foi possivel excluir os dados." + erro);
+		}
+	}
 
 }
