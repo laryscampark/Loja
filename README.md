@@ -37,3 +37,43 @@ CRITÉRIOS DE AVALIAÇÃO
  
 Documentação da Aplicação;
 
+Endpoints 
+
+Conexão 
+
+public class Conexao {
+	private String user;
+	private String url;
+	private String psw;
+	private String driver;
+	
+	public Connection con = null;
+	
+	public Connection conectar() {
+		url = "jdbc:mysql://localhost:3306/banco?characterEncoding=utf8&useSSL=false&useUnicode=true";
+		user = "root";
+		psw = "1997";
+		driver = "com.mysql.cj.jdbc.Driver";
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, psw);
+			System.out.println("Conectado com sucesso! ");
+			
+		} catch (ClassNotFoundException Driver) {
+			System.out.println("Erro não foi possível achar o driver de conexão."+Driver);
+			
+		} catch (SQLException erro) {
+			System.out.println("Erro não foi possível se conectar com o DB."+erro);
+		}
+		
+		return con;
+	}
+	
+	public static void main (String [] args) {
+		
+		Conexao conecta = new Conexao();
+		conecta.conectar();
+	}
+}
+
